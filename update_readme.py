@@ -23,6 +23,8 @@ with open(output_file, "w", encoding="utf-8") as f:
             f.write(f"## {chapter}\n\n")
             for file in sorted(notes[chapter]):  # 可根据需要排序文件名
                 file_path = os.path.join(notes_dir, file)
-                f.write(f"- [{file}]({file_path})\n")
+                # 使用 split 分割文件名，仅保留 '-' 后面的部分作为标题
+                title = file.split("-", 1)[1]
+                f.write(f"- [{title}]({file_path})\n")
             f.write("\n")
 print("README.md 已更新。")
