@@ -5,5 +5,4 @@
 ## 其它
 
 - [其它-test.md](notes/其它-test.md)
-- [其它-test1.md](notes/其它-test1.md)
 
