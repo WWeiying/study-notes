@@ -266,4 +266,4 @@ set -o emacs
 
 
 
-![image-20240814164419398](F:\Study\Study-notes-pictures\image-20240814164419398.png)
+![image-20240814164419398](images/image-20240814164419398.png)
