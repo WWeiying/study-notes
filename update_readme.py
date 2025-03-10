@@ -1,13 +1,3 @@
-'''
-Author: WWeiying wangweiying2021@ia.ac.cn
-Date: 2025-03-10 13:33:44
-LastEditors: WWeiying wangweiying2021@ia.ac.cn
-LastEditTime: 2025-03-10 13:34:34
-FilePath: \undefinedf:\Work\Research\study-notes\update_readme.py
-Description: 
-
-Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
-'''
 import os
 import json
 
