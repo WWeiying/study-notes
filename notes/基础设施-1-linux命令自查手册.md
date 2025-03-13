@@ -8,9 +8,6 @@
 | watch -n 1 ifconfig | 使用 watch 命令周期性地查看 ifconfig 命令的输出，实现每秒更新一次网络接口的信息。退出按`CTRL-C` |
 |    sudo nload -m    |                     查看所有网卡实时网速                     |
 |    file filename    |                         识别文件类型                         |
-|                     |                                                              |
-|                     |                                                              |
-|                     |                                                              |
 
 ### Bash快捷键
 
@@ -66,7 +63,6 @@ set -o emacs
 |                         unzip *.zip                          |          解压当前目录下所有以 `.zip` 结尾的压缩文件          |
 | `find . -name '*.zip' -exec sh -c 'for file do dirname="${file%.zip}"; unzip "$file" -d "$dirname"; done' _ {} \;` |                                                              |
 | `find . -name '*.tar.gz' -exec sh -c 'for file do dirname="${file%.tar.gz}"; mkdir -p "$dirname"; tar -xzvf "$file" -C "$dirname"; done' _ {} \;` |                                                              |
-|                                                              |                                                              |
 
 ### 文件操作
 
@@ -74,7 +70,6 @@ set -o emacs
 | :----------------------------: | :----------------------------------------------------------: |
 | chown -R owner:group directory |     递归地改变文件夹及其所有子文件和子文件夹的属主和属组     |
 |    安装.bundle为后缀的软件     | 在 Linux 中，带有 `.bundle` 后缀的文件通常是一种自解压或自安装包。安装这类文件的基本步骤如下：<br />chmod +x filename.bundle<br />sudo ./filename.bundle |
-|                                |                                                              |
 
 ### find工具
 
@@ -103,28 +98,24 @@ set -o emacs
 
 ### grep工具
 
-|                            命令                            |                             解释                             |
-| :--------------------------------------------------------: | :----------------------------------------------------------: |
-|                 grep [选项] 模式 [文件...]                 |                  grep "pattern" example.txt                  |
-|                            `-i`                            |                 忽略大小写（ignore case）。                  |
-|                            `-v`                            |             反向匹配，即显示不包含匹配模式的行。             |
-|                            `-c`                            |                 只输出匹配的行数（count）。                  |
-|                            `-l`                            |              显示包含匹配模式的文件名（list）。              |
-|                            `-n`                            |                 显示匹配行的行号（number）。                 |
-|                            `-H`                            |           显示匹配的文件名（默认对多个文件生效）。           |
-|                        `-r` 或 `-R`                        |                    递归搜索目录中的文件。                    |
-|                            `-w`                            |                       只匹配整个单词。                       |
-|                            `-o`                            |                      只显示匹配的部分。                      |
-|                          `-A NUM`                          |                   匹配的行及其后 NUM 行。                    |
-|                          `-B NUM`                          |                   匹配的行及其前 NUM 行。                    |
-|                          `-C NUM`                          |                 匹配的行及其前后各 NUM 行。                  |
-| find . -type f -name '*.lib' -exec grep -Hn 'pattern' {} + | 查找所有 .lib 文件并执行 grep 搜索![image-20250307141436207](https://raw.githubusercontent.com/WWeiying/Figurebed/master/blog-images/2025/03/07/14-14-37-193e5da6d9451c6a85607a9607ab5516-image-20250307141436207-8959d1.png?token=AT2LY23EWK47KQO7O5WRCXLHZKHQS) |
-|           grep -rn --include='*.lib' 'pattern' .           | 递归搜索当前目录及子目录下所有 .lib 文件中的 "pattern"![image-20250307141509402](https://raw.githubusercontent.com/WWeiying/Figurebed/master/blog-images/2025/03/07/14-15-11-8c5b91a7866952ccae39995e32f1090c-image-20250307141509402-b707f2.png?token=AT2LY22YKWCBJBKPYD2CR7LHZKHSU) |
-|         grep -rn --include='*.{lib,a}' 'pattern' .         |                       搜索多个文件类型                       |
-|                                                            |                                                              |
-|                                                            |                                                              |
-|                                                            |                                                              |
-|                                                            |                                                              |
+|                            命令                            |                          解释                          |
+| :--------------------------------------------------------: | :----------------------------------------------------: |
+|                 grep [选项] 模式 [文件...]                 |               grep "pattern" example.txt               |
+|                            `-i`                            |              忽略大小写（ignore case）。               |
+|                            `-v`                            |          反向匹配，即显示不包含匹配模式的行。          |
+|                            `-c`                            |              只输出匹配的行数（count）。               |
+|                            `-l`                            |           显示包含匹配模式的文件名（list）。           |
+|                            `-n`                            |              显示匹配行的行号（number）。              |
+|                            `-H`                            |        显示匹配的文件名（默认对多个文件生效）。        |
+|                        `-r` 或 `-R`                        |                 递归搜索目录中的文件。                 |
+|                            `-w`                            |                    只匹配整个单词。                    |
+|                            `-o`                            |                   只显示匹配的部分。                   |
+|                          `-A NUM`                          |                匹配的行及其后 NUM 行。                 |
+|                          `-B NUM`                          |                匹配的行及其前 NUM 行。                 |
+|                          `-C NUM`                          |              匹配的行及其前后各 NUM 行。               |
+| find . -type f -name '*.lib' -exec grep -Hn 'pattern' {} + |           查找所有 .lib 文件并执行 grep 搜索           |
+|           grep -rn --include='*.lib' 'pattern' .           | 递归搜索当前目录及子目录下所有 .lib 文件中的 "pattern" |
+|         grep -rn --include='*.{lib,a}' 'pattern' .         |                    搜索多个文件类型                    |
 ### 后台执行
 
 |  命令  |                                                                                解释                                                                                |
@@ -144,7 +135,6 @@ set -o emacs
 | crontab -r |                删除所有定时任务（谨慎操作！）                |
 |            | ![image-20250307191413788](images/image-20250307191413788.png) |
 |            | ![image-20250307191512098](images/image-20250307191512098.png) |
-|            |                                                              |
 
 
 ### 历史命令
@@ -184,13 +174,12 @@ set -o emacs
 |                          kill <PID>                          |        终止单个进程         |
 |                        kill -9 <PID>                         |        强制终止进程         |
 |                       pkill -u wangwy                        |    批量终止用户所有进程     |
-|                                                              |                             |
 
-### 代码统计
+### cloc代码统计
+
 | 命令 |                             解释                             |
 | :--: | :----------------------------------------------------------: |
 | cloc | `cloc` 是一个用于统计源代码行数的命令行工具。它可以分析多种编程语言的代码，并生成代码统计报告，包括空白行、注释行和实际代码行数。 |
-|      |                                                              |
 
 ### git工具
 
@@ -363,12 +352,6 @@ git push --force               # 强制覆盖远程错误提交
 | ` docker run -itd --hostname lizhen --mac-address 02:42:ac:11:00:02 -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/root/.Xauthority -v $HOME/mydata:/mydata -e DISPLAY=$DISPLAY -e GDK_SCALE -e GDK_DPI_SCALE --name EDA phyzli/ubuntu18.04_xfce4_vnc4server_synopsys`:w |                            |
 |                   docker container rm EDA                    | 删除一个处于终止状态的容器 |
 |                  docker container rm EDA -f                  |    删除一个运行中的容器    |
-|                                                              |                            |
-|                                                              |                            |
-|                                                              |                            |
-|                                                              |                            |
-|                                                              |                            |
-|                                                              |                            |
 
 ### VNC
 
@@ -380,8 +363,6 @@ git push --force               # 强制覆盖远程错误提交
 | sudo systemctl status vncserver@:<display>.service  | 查看服务状态 |
 | sudo systemctl enable vncserver@:<display>.service  | 设置开机自启 |
 | sudo systemctl disable vncserver@:<display>.service | 取消开机自启 |
-|                                                     |              |
-|                                                     |              |
 
 
 
@@ -460,27 +441,29 @@ git push --force               # 强制覆盖远程错误提交
 
 > screen 是一个终端复用工具，支持会话管理、分屏、窗口管理和后台任务运行，适合长时间维护远程会话和多任务操作。
 
-|     命令/快捷键      |                    解释                    |   类别   |
-| :------------------: | :----------------------------------------: | :------: |
-|       `screen`       |              启动新的匿名会话              | 会话管理 |
-|  `screen -S <name>`  |          创建**命名会话**（推荐）          | 会话管理 |
-|     `screen -ls`     |            列出所有已保存的会话            | 会话管理 |
-| `screen -r [会话ID]` | 重新连接指定会话（默认连接最近分离的会话） | 会话管理 |
-| `screen -x [会话ID]` |          **共享会话**（多人协作）          | 会话管理 |
-|    `Ctrl + a, d`     |          分离当前会话（后台运行）          | 会话管理 |
-|    `Ctrl + a, c`     |         在当前会话中**创建新窗口**         | 窗口管理 |
-|    `Ctrl + a, n`     |              切换到下一个窗口              | 窗口管理 |
-|    `Ctrl + a, p`     |              切换到上一个窗口              | 窗口管理 |
-|    `Ctrl + a, "`     |             显示窗口列表并切换             | 窗口管理 |
-|   `Ctrl + a, 0-9`    |           直接切换到第0-9号窗口            | 窗口管理 |
-|    `Ctrl + a, k`     |            **强制关闭当前窗口**            | 窗口管理 |
-|    `Ctrl + a, S`     |            水平分割窗口（分屏）            | 分屏管理 |
-|   `Ctrl + a, Tab`    |              在分屏间切换焦点              | 分屏管理 |
-|    `Ctrl + a, Q`     |          关闭当前分屏（保留窗口）          | 分屏管理 |
-| `Ctrl + a, :resize`  |      调整分屏大小（交互式输入百分比）      | 分屏管理 |
-|    `Ctrl + a, [`     | 进入**复制模式**（支持文本选择和历史回滚） | 其他功能 |
-|    `Ctrl + a, ]`     |             粘贴复制的文本内容             | 其他功能 |
-|    `Ctrl + a, ?`     |           查看所有快捷键帮助文档           | 其他功能 |
-|    `Ctrl + a, A`     |               重命名当前窗口               | 其他功能 |
-|    `Ctrl + a, x`     |           **锁定会话**（需密码）           | 安全功能 |
-|    `Ctrl + a, \`     |             完全退出screen工具             | 退出操作 |
+|         命令/快捷键          |                    解释                    |   类别   |
+| :--------------------------: | :----------------------------------------: | :------: |
+|           `screen`           |              启动新的匿名会话              | 会话管理 |
+|      `screen -S <name>`      |          创建**命名会话**（推荐）          | 会话管理 |
+|         `screen -ls`         |            列出所有已保存的会话            | 会话管理 |
+|     `screen -r [会话ID]`     | 重新连接指定会话（默认连接最近分离的会话） | 会话管理 |
+|     `screen -x [会话ID]`     |          **共享会话**（多人协作）          | 会话管理 |
+|        `Ctrl + a, d`         |          分离当前会话（后台运行）          | 会话管理 |
+|        `Ctrl + a, c`         |         在当前会话中**创建新窗口**         | 窗口管理 |
+|        `Ctrl + a, n`         |              切换到下一个窗口              | 窗口管理 |
+|        `Ctrl + a, p`         |              切换到上一个窗口              | 窗口管理 |
+|        `Ctrl + a, "`         |             显示窗口列表并切换             | 窗口管理 |
+|       `Ctrl + a, 0-9`        |           直接切换到第0-9号窗口            | 窗口管理 |
+|        `Ctrl + a, k`         |            **强制关闭当前窗口**            | 窗口管理 |
+| `Ctrl + a, :number <新位置>` |            将窗口移动到指定位置            | 窗口管理 |
+|        `Ctrl + a, A`         |            为当前窗口设置新名称            | 窗口管理 |
+|        `Ctrl + a, S`         |            水平分割窗口（分屏）            | 分屏管理 |
+|       `Ctrl + a, Tab`        |              在分屏间切换焦点              | 分屏管理 |
+|        `Ctrl + a, Q`         |          关闭当前分屏（保留窗口）          | 分屏管理 |
+|     `Ctrl + a, :resize`      |      调整分屏大小（交互式输入百分比）      | 分屏管理 |
+|        `Ctrl + a, [`         | 进入**复制模式**（支持文本选择和历史回滚） | 其他功能 |
+|        `Ctrl + a, ]`         |             粘贴复制的文本内容             | 其他功能 |
+|        `Ctrl + a, ?`         |           查看所有快捷键帮助文档           | 其他功能 |
+|        `Ctrl + a, A`         |               重命名当前窗口               | 其他功能 |
+|        `Ctrl + a, x`         |           **锁定会话**（需密码）           | 安全功能 |
+|        `Ctrl + a, \`         |             完全退出screen工具             | 退出操作 |
