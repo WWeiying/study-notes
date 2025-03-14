@@ -3,11 +3,11 @@
 ## linux命令自查手册
 >持续更新
 
-|        命令         |                             解释                             |
-| :-----------------: | :----------------------------------------------------------: |
-| watch -n 1 ifconfig | 使用 watch 命令周期性地查看 ifconfig 命令的输出，实现每秒更新一次网络接口的信息。退出按`CTRL-C` |
-|    sudo nload -m    |                     查看所有网卡实时网速                     |
-|    file filename    |                         识别文件类型                         |
+|     命令      |     解释     |
+| :-----------: | :----------: |
+|               |              |
+|               |              |
+| file filename | 识别文件类型 |
 
 ### Bash快捷键
 
@@ -175,6 +175,22 @@ set -o emacs
 |                        kill -9 <PID>                         |        强制终止进程         |
 |                       pkill -u wangwy                        |    批量终止用户所有进程     |
 
+### 网络管理
+
+|                 命令                  |                             解释                             |
+| :-----------------------------------: | :----------------------------------------------------------: |
+|          nmcli device status          |        显示网络设备的状态（如 `wifi`、`ethernet` 等）        |
+|             ip link show              | 显示所有网络接口及其状态（`UP` 表示已启用，`DOWN` 表示已关闭） |
+|               ifconfig                |    显示所有网络接口的详细信息（需要安装 `net-tools` 包）     |
+|    sudo ip link set <接口名> down     |                       关闭 `eth0` 接口                       |
+|     sudo ip link set <接口名> up      |                       启用 `eth0` 接口                       |
+| sudo nmcli device disconnect <接口名> |                       关闭 `eth0` 接口                       |
+|  sudo nmcli device connect <接口名>   |                       启用 `eth0` 接口                       |
+|      sudo ifconfig <接口名> down      |                       关闭 `eth0` 接口                       |
+|       sudo ifconfig <接口名> up       |                       启用 `eth0` 接口                       |
+|          watch -n 1 ifconfig          | 使用 watch 命令周期性地查看 ifconfig 命令的输出，实现每秒更新一次网络接口的信息。退出按`CTRL-C` |
+|             sudo nload -m             |                     查看所有网卡实时网速                     |
+
 ### cloc代码统计
 
 | 命令 |                             解释                             |
@@ -194,6 +210,8 @@ set -o emacs
 |              git checkout -- <file>               | 从当前分支中恢复指定的文件，放弃这些修改并恢复到最新提交的状态， |
 |                 git checkout -- .                 | 将工作区中的所有文件恢复到最近一次提交的状态，但不会影响暂存区中的文件 |
 |            git checkout <commit-hash>             | 切换到指定的提交（会使工作区进入“分离头指针”状态）。         |
+|        git checkout <分支名> -- <文件路径>        | 从指定分支中提取特定文件到当前分支的工作目录中               |
+|        git checkout -b 新分支名 提交哈希值        | 从特定提交创建新分支                                         |
 |                  **git branch**                   | 用于在 Git 中管理分支，可以用于列出、创建、删除和重命名分支。 |
 |                    git branch                     | 列出本地仓库中的所有分支                                     |
 |                   git branch -a                   | 加上 `-a` 选项可以列出所有分支，包括远程分支                 |
@@ -209,6 +227,8 @@ set -o emacs
 |        git push <remote> --delete <branch>        | 删除远程仓库中的分支。                                       |
 |              git push --all <remote>              | 将本地所有分支推送到远程仓库。                               |
 |             git push <remote> --tags              | 将本地所有标签推送到远程仓库。                               |
+|      git push origin --delete feature-branch      | 删除远程分支                                                 |
+|           git branch -d feature-branch            | 删除本地分支                                                 |
 |                   **git reset**                   |                                                              |
 |               git reset --hard HEAD               | 将工作区和暂存区中的文件恢复到上一次提交的状态               |
 |             git reset --soft HEAD~10              | 撤销最近 10 次提交的 Git 命令，但保留所有修改内容在暂存区<br />  撤销提交历史但保留代码修改，便于重新提交，适合未推送的本地提交调整，已推送需谨慎使用 `--force` |
