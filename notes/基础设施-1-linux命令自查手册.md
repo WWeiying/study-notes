@@ -211,6 +211,10 @@ set -o emacs
 |                 git checkout -- .                 | 将工作区中的所有文件恢复到最近一次提交的状态，但不会影响暂存区中的文件 |
 |            git checkout <commit-hash>             | 切换到指定的提交（会使工作区进入“分离头指针”状态）。         |
 |        git checkout <分支名> -- <文件路径>        | 从指定分支中提取特定文件到当前分支的工作目录中               |
+|   git checkout <branch_name>~<n> -- <file_path>   | **`~<n>`**：表示从分支的最新提交向前回溯 `n` 个提交。        |
+|      git checkout <tag_name> -- <file_path>       | 切换到指定标签的版本                                         |
+|     git checkout <commit_hash> -- <file_path>     | 切换到指定提交的版本                                         |
+|                                                   |                                                              |
 |        git checkout -b 新分支名 提交哈希值        | 从特定提交创建新分支                                         |
 |                  **git branch**                   | 用于在 Git 中管理分支，可以用于列出、创建、删除和重命名分支。 |
 |                    git branch                     | 列出本地仓库中的所有分支                                     |
