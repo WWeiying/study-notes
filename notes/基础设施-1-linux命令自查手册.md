@@ -3,11 +3,11 @@
 ## linux命令自查手册
 >持续更新
 
-|     命令      |     解释     |
-| :-----------: | :----------: |
-|               |              |
-|               |              |
-| file filename | 识别文件类型 |
+|     命令      |                  解释                  |
+| :-----------: | :------------------------------------: |
+|    echo $?    | # 打印上一个命令的退出状态码（0 或 1） |
+|               |                                        |
+| file filename |              识别文件类型              |
 
 ### Bash快捷键
 
@@ -190,6 +190,36 @@ set -o emacs
 |       sudo ifconfig <接口名> up       |                       启用 `eth0` 接口                       |
 |          watch -n 1 ifconfig          | 使用 watch 命令周期性地查看 ifconfig 命令的输出，实现每秒更新一次网络接口的信息。退出按`CTRL-C` |
 |             sudo nload -m             |                     查看所有网卡实时网速                     |
+|          sudo lsof -i :8080           | 使用 lsof 命令查找进程，显示占用 8080 端口的进程列表及其 PID |
+|          sudo kill -9 <PID>           |                   使用 kill 命令终止该进程                   |
+|                                       |                                                              |
+
+
+
+### 防火墙管理
+
+以下是针对 **Rocky Linux**（基于 RHEL/CentOS 生态）的防火墙命令总结，主要围绕默认防火墙工具 `firewalld` 和底层 `iptables` 整理：
+
+|                          命令/操作                           |                功能                |     类别     | 备注/示例                                                    |
+| :----------------------------------------------------------: | :--------------------------------: | :----------: | :----------------------------------------------------------- |
+|            **`sudo systemctl status firewalld`**             |      查看 firewalld 服务状态       | **服务管理** | 启动/重启：<br>`sudo systemctl start firewalld`<br>`sudo systemctl restart firewalld` |
+|               **`sudo firewall-cmd --state`**                |      检查 firewalld 是否运行       | **状态管理** | 返回 `running` 或 `not running`                              |
+|               **`sudo firewall-cmd --reload`**               |    重新加载规则（应用永久配置）    | **规则管理** | 修改永久规则后必须执行                                       |
+|              **`sudo firewall-cmd --list-all`**              |       查看当前区域的所有规则       | **规则查看** | 指定区域：`--zone=public`                                    |
+|    **`sudo firewall-cmd --add-port=80/tcp --permanent`**     |     永久开放端口（如 HTTP 80）     | **端口管理** | 临时开放不加 `--permanent`，需 `--reload` 生效               |
+|  **`sudo firewall-cmd --remove-port=8080/tcp --permanent`**  |            永久关闭端口            | **端口管理** | 同理需 `--reload`                                            |
+|    **`sudo firewall-cmd --add-service=http --permanent`**    | 通过服务名开放端口（内置服务列表） | **服务管理** | 查看服务列表：`sudo firewall-cmd --get-services`             |
+| **`sudo firewall-cmd --add-source=192.168.1.0/24 --permanent`** |         允许特定 IP 段访问         | **IP 限制**  | 拒绝访问：`--remove-source`                                  |
+| **`sudo firewall-cmd --zone=public --set-default-zone=trusted`** |            修改默认区域            | **区域管理** | 常用区域：`public`（默认）、`trusted`（允许所有流量）        |
+|              **`sudo firewall-cmd --panic-on`**              |    启用紧急模式（阻断所有流量）    | **应急操作** | 恢复：`sudo firewall-cmd --panic-off`                        |
+|             **`sudo firewall-cmd --list-ports`**             |          列出所有开放端口          | **规则查看** | 区分临时和永久规则                                           |
+|        **`sudo firewall-cmd --runtime-to-permanent`**        |     将当前临时规则转为永久规则     |  **持久化**  | 避免重启后丢失配置                                           |
+|                 **`sudo iptables -L -n -v`**                 |   查看 iptables 规则（底层检查）   | **底层调试** | `-L` 列出规则，`-n` 禁用 DNS 解析，`-v` 详细信息             |
+|      **`sudo iptables-save > /etc/sysconfig/iptables`**      |   保存 iptables 规则（兼容模式）   |  **持久化**  | 需安装 `iptables-services`：<br>`sudo dnf install iptables-services` |
+|   **`sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT`**   | 允许 SSH 端口（iptables 直接操作） | **底层配置** | 谨慎操作！建议优先使用 `firewalld`                           |
+|              **`sudo journalctl -u firewalld`**              |        查看 firewalld 日志         | **日志排查** | 按时间筛选：`-S "2023-10-01" -U "2023-10-02"`                |
+
+
 
 ### cloc代码统计
 
@@ -203,6 +233,8 @@ set -o emacs
 
 |                       命令                        | 解释                                                         |
 | :-----------------------------------------------: | :----------------------------------------------------------- |
+|                    **git add**                    |                                                              |
+|                git add -u/--update                | 只会更新已经被 Git 追踪（Tracked）的文件，添加已追踪文件的修改（Modified）,添加已追踪文件的删除（Deleted）。 |
 |                 **git checkout**                  | 用于切换分支、恢复工作区文件以及创建新分支                   |
 |            git checkout <branch-name>             | 切换到指定的分支                                             |
 |          git switch -c <new-branch-name>          |                                                              |
@@ -292,7 +324,8 @@ set -o emacs
 |               `git reflog`                |    查看所有操作记录（包括已删除的提交）    | 高级操作 |
 |         `git submodule add <URL>`         |                 添加子模块                 | 高级操作 |
 
-#### 1. **常用配置示例**
+1. **常用配置示例**
+
 ```bash
 # ~/.gitconfig 配置示例
 [alias]
@@ -303,7 +336,8 @@ set -o emacs
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 ```
 
-#### 2. **忽略文件配置（.gitignore）**
+2. **忽略文件配置（.gitignore）**
+
 ```bash
 # 忽略所有 .log 文件
 *.log
@@ -316,13 +350,15 @@ node_modules/
 !important.log
 ```
 
-#### 3. **分支策略建议**
+3. **分支策略建议**
+
 - `main`/`master`: 主分支（仅用于发布稳定版本）
 - `develop`: 开发分支
 - `feature/xxx`: 功能分支
 - `hotfix/xxx`: 热修复分支
 
-#### 4. **提交消息规范**
+4. **提交消息规范**
+
 推荐使用 [Conventional Commits](https://www.conventionalcommits.org/) 格式：
 ```bash
 feat: 添加用户登录功能
@@ -334,7 +370,7 @@ test: 添加单元测试用例
 chore: 更新依赖包版本
 ```
 
-#### 场景1：修复紧急Bug
+ 场景1：修复紧急Bug
 
 ```bash
 git checkout main              # 切换到主分支
@@ -347,7 +383,8 @@ git push origin hotfix/header  # 推送分支
 # 创建 Pull Request 合并到 main 分支
 ```
 
-#### 场景2：协作开发功能
+ 场景2：协作开发功能
+
 ```bash
 git clone https://github.com/user/project.git
 git checkout -b feature/search  # 创建功能分支
@@ -358,7 +395,8 @@ git push origin feature/search  # 推送分支
 # 发起 Code Review 后合并到 develop 分支
 ```
 
-#### 场景3：撤销错误提交
+场景3：撤销错误提交
+
 ```bash
 git reset --soft HEAD~1        # 撤销提交但保留修改
 # 重新修改代码
@@ -491,3 +529,32 @@ git push --force               # 强制覆盖远程错误提交
 |        `Ctrl + a, A`         |               重命名当前窗口               | 其他功能 |
 |        `Ctrl + a, x`         |           **锁定会话**（需密码）           | 安全功能 |
 |        `Ctrl + a, \`         |             完全退出screen工具             | 退出操作 |
+
+
+
+
+
+### Conda 命令
+
+|                命令/操作                |                 功能                 |     类别     | 备注/示例                                            |
+| :-------------------------------------: | :----------------------------------: | :----------: | :--------------------------------------------------- |
+|       `conda create --name <env>`       |     创建新环境（默认Python版本）     | **环境管理** | 推荐指定版本：`conda create --name py38 python=3.8`  |
+|  `conda create --name <env> <package>`  |  创建环境并安装指定包（如 `numpy`）  | **环境管理** | 可同时安装多个包                                     |
+|         `conda activate <env>`          |             激活指定环境             | **环境管理** | 退出用 `conda deactivate`                            |
+|            `conda env list`             |         列出所有已存在的环境         | **环境管理** | 别名：`conda info --envs`                            |
+|     `conda env remove --name <env>`     |        删除指定环境（需确认）        | **环境管理** | 谨慎操作！                                           |
+|  `conda env export > environment.yml`   |      导出当前环境配置到YAML文件      | **环境管理** | 跨平台时建议加 `--no-builds`                         |
+|  `conda env create -f environment.yml`  |         根据YAML文件重建环境         | **环境管理** | 适合团队共享配置                                     |
+|        `conda install <package>`        |    在当前环境安装包（如 `numpy`）    |  **包管理**  | 可指定版本：`conda install numpy=1.21`               |
+| `conda install -c <channel> <package>`  | 从指定频道安装包（如 `conda-forge`） |  **包管理**  | 优先官方频道                                         |
+|        `conda remove <package>`         |         卸载当前环境的指定包         |  **包管理**  | 别名：`conda uninstall`                              |
+|              `conda list`               |       列出当前环境所有已安装包       |  **包管理**  | 查看版本：`conda list numpy`                         |
+|        `conda update <package>`         |         更新指定包到最新版本         |  **包管理**  | `conda update --all` 更新所有包                      |
+|        `conda search <package>`         |          搜索可安装的包版本          |  **包管理**  | 支持模糊搜索（如 `tensor*`）                         |
+| `conda config --add channels <channel>` |  添加第三方频道（如 `conda-forge`）  | **频道管理** | 优先级：`conda config --set channel_priority strict` |
+|     `conda config --show channels`      |        查看当前配置的频道列表        | **频道管理** | 默认含 `defaults`                                    |
+|           `conda clean --all`           |       清理缓存（释放磁盘空间）       | **其他功能** | 慎用：会删除未使用的包                               |
+|            `conda --version`            |            查看Conda版本             | **其他功能** | 检查是否安装成功                                     |
+|          `conda update conda`           |       更新Conda自身到最新版本        | **其他功能** | 需定期执行                                           |
+|              `conda info`               |  查看Conda系统信息（路径、版本等）   | **其他功能** | 调试时有用                                           |
+|              `conda help`               |             查看帮助文档             | **其他功能** | 子命令也支持（如 `conda install --help`）            |
