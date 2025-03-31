@@ -409,11 +409,37 @@ git push --force               # 强制覆盖远程错误提交
 
 ### Docker
 
-|                             命令                             |            解释            |
-| :----------------------------------------------------------: | :------------------------: |
-| ` docker run -itd --hostname lizhen --mac-address 02:42:ac:11:00:02 -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/root/.Xauthority -v $HOME/mydata:/mydata -e DISPLAY=$DISPLAY -e GDK_SCALE -e GDK_DPI_SCALE --name EDA phyzli/ubuntu18.04_xfce4_vnc4server_synopsys`:w |                            |
-|                   docker container rm EDA                    | 删除一个处于终止状态的容器 |
-|                  docker container rm EDA -f                  |    删除一个运行中的容器    |
+|                             命令                             |                     解释                     |
+| :----------------------------------------------------------: | :------------------------------------------: |
+| docker run -itd --hostname lizhen --mac-address 02:42:ac:11:00:02 -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/root/.Xauthority -v $HOME/mydata:/mydata -e DISPLAY=$DISPLAY -e GDK_SCALE -e GDK_DPI_SCALE --name EDA phyzli/ubuntu18.04_xfce4_vnc4server_synopsys |                                              |
+| docker run -u $UID:$GID --volume /home/wangwy/openproject/gem5:/gem5 -it ghcr.io/gem5/ubuntu-22.04_all-dependencies bash |                                              |
+| docker run -v /home/wangwy/:/home/wangwy -w /home/wangwy --mac-address 02:42:ac:11:00:02 -it --hostname lizhen --name EDA phyzli/ubuntu18.04_xfce4_vnc4server_synopsys bash |                                              |
+|                 sudo systemctl start docker                  |               启动 Docker 服务               |
+|                 sudo systemctl enable docker                 |             设置开机自启（可选）             |
+|                 sudo systemctl status docker                 |   检查是否运行（显示 "active (running)"）    |
+|                sudo systemctl restart docker                 |                   重启服务                   |
+|                     sudo pkill -f docker                     |                 终止残留进程                 |
+|                   docker container rm EDA                    |          删除一个处于终止状态的容器          |
+|                  docker container rm EDA -f                  |             删除一个运行中的容器             |
+|               sudo docker run --rm hello-world               |                   测试运行                   |
+|                    docker container ls -a                    |     查看所有已经创建的包括终止状态的容器     |
+|                    docker container prune                    |         清理掉所有处于终止状态的容器         |
+|                    docker container stop                     |             终止一个运行中的容器             |
+|                         exit/Ctrl+d                          |                                              |
+|                                                              |                                              |
+|                            whoami                            |                显示当前用户名                |
+|                            id -un                            |                显示当前用户名                |
+|                            id -gn                            |             显示当前用户的主组名             |
+|                            groups                            |          显示当前用户所属的所有组名          |
+|                            id -u                             |              显示当前用户的 UID              |
+|                            id -g                             |            显示当前用户的主组 GID            |
+|                            id -G                             |           显示当前用户的所有组 GID           |
+|                              id                              | 显示完整的用户信息（用户名、UID、组名、GID） |
+|                                                              |                                              |
+|                                                              |                                              |
+|                                                              |                                              |
+|                                                              |                                              |
+|                                                              |                                              |
 
 ### VNC
 
