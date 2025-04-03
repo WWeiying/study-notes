@@ -116,6 +116,55 @@ set -o emacs
 | find . -type f -name '*.lib' -exec grep -Hn 'pattern' {} + |           查找所有 .lib 文件并执行 grep 搜索           |
 |           grep -rn --include='*.lib' 'pattern' .           | 递归搜索当前目录及子目录下所有 .lib 文件中的 "pattern" |
 |         grep -rn --include='*.{lib,a}' 'pattern' .         |                    搜索多个文件类型                    |
+
+
+### sed 工具
+
+|                    命令                    |                         解释                         |
+| :----------------------------------------: | :--------------------------------------------------: |
+|        sed [选项] '脚本' [输入文件]        |            基本命令格式（stream editor）             |
+|                **常用选项**                |                                                      |
+|                    `-i`                    | 直接修改文件（默认备份原文件，可指定后缀如`-i.bak`） |
+|                    `-n`                    |           取消默认输出，需配合`p`命令显示            |
+|                    `-e`                    |       允许多个脚本（例：`-e 's/a/b/' -e 'd'`）       |
+|                    `-r`                    |              启用扩展正则表达式（ERE）               |
+|                    `-f`                    |        从文件读取脚本（例：`-f script.sed`）         |
+|                **脚本命令**                |                                                      |
+|            `s/原模式/替换模式/`            |         替换第一个匹配项（例：`s/foo/bar/`）         |
+|           `s/原模式/替换模式/g`            |            全局替换（global replacement）            |
+|           `s/原模式/替换模式/I`            |        忽略大小写替换（需`-r`或`-E`选项支持）        |
+|           `s/原模式/替换模式/gi`           |                 全局+忽略大小写替换                  |
+|                    `d`                     |                 删除匹配行（delete）                 |
+|                    `p`                     |         打印匹配行（通常与`-n`选项配合使用）         |
+|                  `a\text`                  |             在匹配行后追加文本（append）             |
+|                  `i\text`                  |             在匹配行前插入文本（insert）             |
+|                  `c\text`                  |                替换整行内容（change）                |
+|                    `q`                     |               处理到某行后退出（quit）               |
+|                 **行寻址**                 |                                                      |
+|                `n`（数字）                 |        指定行号（例：`3s/foo/bar/`修改第3行）        |
+|               `/正则表达式/`               |     匹配正则表达式的行（例：`/^#/d`删除注释行）      |
+|              `起始行,结束行`               |  范围匹配（例：`5,10d`删除5-10行，`1,$`表示全部行）  |
+|              **组合用法示例**              |                                                      |
+|        `sed 's/foo/bar/g' file.txt`        |      替换文件中所有`foo`为`bar`（不修改原文件）      |
+|        `sed -i 's/foo/bar/g' *.txt`        |              直接修改所有`.txt`文件内容              |
+|        `sed -n '/error/p' log.txt`         |                仅打印包含"error"的行                 |
+|      `sed '/start/,/end/d' file.txt`       |           删除从"start"到"end"之间的所有行           |
+| `sed -e 's/foo/bar/g' -e '/^$/d' file.txt` |          组合多个命令：全局替换 + 删除空行           |
+|      `sed '3,5s/foo/bar/g' file.txt`       |              仅替换3-5行的`foo`为`bar`               |
+|      `sed 's/[0-9]/数字/g' file.txt`       |       将所有数字替换为"数字"（正则表达式用法）       |
+|  `sed -r 's/(foo) (bar)/\2 \1/' file.txt`  |    使用分组交换"foo bar"为"bar foo"（需`-r`选项）    |
+
+1. 分隔符 `/` 可替换为其他符号（如 `#`、`|`），避免与模式冲突：  
+   `sed 's#/path/to/old#/path/to/new#g'`
+
+2. 结合 `find` 递归处理文件：  
+   `find . -name "*.txt" -exec sed -i 's/foo/bar/g' {} +`
+
+3. 处理特殊字符需转义：  
+   `sed 's/\/home\/user/\/new\/path/g'` 或 `sed 's|/home/user|/new/path|g'`
+
+
+
 ### 后台执行
 
 |  命令  |                                                                                解释                                                                                |
