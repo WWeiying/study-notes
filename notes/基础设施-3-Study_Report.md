@@ -41,20 +41,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## WorkWeek12 2025/3/20
 
 ### 工作进展
@@ -78,6 +64,24 @@
   **github开发热度，持续进行中：**
 
   ![image-20250320233234613](images/image-20250320233234613.png)
+
+### 工作计划
+
+进行brook主体的搭建
+
+
+
+## WorkWeek14 2025/4/10
+
+### 工作进展
+
+- OpenC910 Coremark测试 ：6.165684 (iterations/sec)/MHz@-o3
+
+- ARA的RVV SV实现整数、定点功能部件时序评估 能够满足2Ghz@TSMC28nm
+
+- RVV指令功能梳理
+
+- Memory System相关知识学习
 
 ### 工作计划
 
