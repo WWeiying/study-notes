@@ -638,3 +638,25 @@ git push --force               # 强制覆盖远程错误提交
 |          `conda update conda`           |       更新Conda自身到最新版本        | **其他功能** | 需定期执行                                           |
 |              `conda info`               |  查看Conda系统信息（路径、版本等）   | **其他功能** | 调试时有用                                           |
 |              `conda help`               |             查看帮助文档             | **其他功能** | 子命令也支持（如 `conda install --help`）            |
+
+
+
+
+
+CTags 工具使用总结
+
+| 命令/操作                                  | 参数说明                              | 功能分类     |
+| ------------------------------------------ | ------------------------------------- | ------------ |
+| `sudo apt-get install exuberant-ctags`     | 通过包管理器安装（Ubuntu/Debian）     | 安装与初始化 |
+| `ctags --version`                          | 验证安装是否成功                      |              |
+| `ctags -R`                                 | 递归生成当前目录及子目录标签文件      | 标签生成     |
+| `ctags -R --languages=c++ --exclude=build` | 限定语言/排除目录                     |              |
+| `Ctrl + ]`                                 | Vim中跳转到定义                       | 代码导航     |
+| `Ctrl + t`                                 | Vim中返回跳转前位置                   |              |
+| `:set tags=./tags;/`                       | Vim中配置标签路径（自动向上递归查找） | 编辑器集成   |
+| `:tag <symbol>`                            | 手动跳转到指定符号                    |              |
+| `ctags -R --fields=+aiKSz --extras=+q`     | 生成带访问权限、继承关系的元数据      | 高级功能     |
+| `ctags --list-kinds=c++`                   | 查看C++支持的语法元素类型             |              |
+| `ctags -f newtags --append`                | 增量更新标签文件（不覆盖旧数据）      | 维护与调试   |
+| `ctags -R --verbose`                       | 显示生成过程的调试信息                |              |
+
