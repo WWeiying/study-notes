@@ -141,6 +141,7 @@ Vim 常用的模式有四种：
 |    :nohlsearch/:noh     |                     移除匹配项的高亮显示                     |
 | :set hlsearch/:set hls  |                     设置匹配项的高亮显示                     |
 |  :set insearch/:set is  |           设置递进式搜索，随着输入字符更新搜索结果           |
+| :set formatoptions-=ro  |                   下一行不自动续写注释符号                   |
 |       <F1>/:help        | 启动VIM的在线帮助系统<br />:help w<br/>        :help c_CTRL-D<br/>        :help insert-index<br/>        :help user-manual<br />:help vimrc-intro<br />:help cmd |
 |         CTRL-W          |                        在窗口之间跳转                        |
 |          vimrc          | :edit ~/.vimrc 编辑vimrc文件<br />:r $VIMRUNTIME/vimrc_example.vim 读取vimrc示例文件的内容<br />:write 保存文件 |
