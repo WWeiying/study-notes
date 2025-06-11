@@ -316,7 +316,9 @@ set -o emacs
 |           git branch -d feature-branch            | 删除本地分支                                                 |
 |                   **git reset**                   |                                                              |
 |               git reset --hard HEAD               | 将工作区和暂存区中的文件恢复到上一次提交的状态               |
+|              git reset --soft HEAD~               |                                                              |
 |             git reset --soft HEAD~10              | 撤销最近 10 次提交的 Git 命令，但保留所有修改内容在暂存区<br />  撤销提交历史但保留代码修改，便于重新提交，适合未推送的本地提交调整，已推送需谨慎使用 `--force` |
+|                                                   |                                                              |
 |                  **git restore**                  |                                                              |
 |            git restore --staged <file>            | 将暂存区中的文件恢复到工作区，即取消暂存                     |
 |              git restore --staged .               | 取消所有暂存的文件                                           |
