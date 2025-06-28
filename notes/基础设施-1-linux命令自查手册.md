@@ -226,22 +226,23 @@ set -o emacs
 
 ### 网络管理
 
-|                 命令                  |                             解释                             |
-| :-----------------------------------: | :----------------------------------------------------------: |
-|          nmcli device status          |        显示网络设备的状态（如 `wifi`、`ethernet` 等）        |
-|             ip link show              | 显示所有网络接口及其状态（`UP` 表示已启用，`DOWN` 表示已关闭） |
-|               ifconfig                |    显示所有网络接口的详细信息（需要安装 `net-tools` 包）     |
-|    sudo ip link set <接口名> down     |                       关闭 `eth0` 接口                       |
-|     sudo ip link set <接口名> up      |                       启用 `eth0` 接口                       |
-| sudo nmcli device disconnect <接口名> |                       关闭 `eth0` 接口                       |
-|  sudo nmcli device connect <接口名>   |                       启用 `eth0` 接口                       |
-|      sudo ifconfig <接口名> down      |                       关闭 `eth0` 接口                       |
-|       sudo ifconfig <接口名> up       |                       启用 `eth0` 接口                       |
-|          watch -n 1 ifconfig          | 使用 watch 命令周期性地查看 ifconfig 命令的输出，实现每秒更新一次网络接口的信息。退出按`CTRL-C` |
-|             sudo nload -m             |                     查看所有网卡实时网速                     |
-|          sudo lsof -i :8080           | 使用 lsof 命令查找进程，显示占用 8080 端口的进程列表及其 PID |
-|          sudo kill -9 <PID>           |                   使用 kill 命令终止该进程                   |
-|                                       |                                                              |
+|                             命令                             |                             解释                             |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                     nmcli device status                      |        显示网络设备的状态（如 `wifi`、`ethernet` 等）        |
+|                         ip link show                         | 显示所有网络接口及其状态（`UP` 表示已启用，`DOWN` 表示已关闭） |
+|                           ifconfig                           |    显示所有网络接口的详细信息（需要安装 `net-tools` 包）     |
+|                sudo ip link set <接口名> down                |                       关闭 `eth0` 接口                       |
+|                 sudo ip link set <接口名> up                 |                       启用 `eth0` 接口                       |
+|            sudo nmcli device disconnect <接口名>             |                       关闭 `eth0` 接口                       |
+|              sudo nmcli device connect <接口名>              |                       启用 `eth0` 接口                       |
+|                 sudo ifconfig <接口名> down                  |                       关闭 `eth0` 接口                       |
+|                  sudo ifconfig <接口名> up                   |                       启用 `eth0` 接口                       |
+|                     watch -n 1 ifconfig                      | 使用 watch 命令周期性地查看 ifconfig 命令的输出，实现每秒更新一次网络接口的信息。退出按`CTRL-C` |
+|                        sudo nload -m                         |                     查看所有网卡实时网速                     |
+|                      sudo lsof -i :8080                      | 使用 lsof 命令查找进程，显示占用 8080 端口的进程列表及其 PID |
+|                      sudo kill -9 <PID>                      |                   使用 kill 命令终止该进程                   |
+| curl --connect-timeout 5 https://github.com --proxy http://127.0.0.1:7890 |                       测试 GitHub 访问                       |
+|              sudo netstat -tulnp \| grep :7890               |                   查看占用 7890 端口的进程                   |
 
 
 
@@ -640,6 +641,7 @@ git push --force               # 强制覆盖远程错误提交
 |          `conda update conda`           |       更新Conda自身到最新版本        | **其他功能** | 需定期执行                                           |
 |              `conda info`               |  查看Conda系统信息（路径、版本等）   | **其他功能** | 调试时有用                                           |
 |              `conda help`               |             查看帮助文档             | **其他功能** | 子命令也支持（如 `conda install --help`）            |
+|   conda env export > environment.yml    |     导出环境配置（包含 pip 包）      |              |                                                      |
 
 
 
