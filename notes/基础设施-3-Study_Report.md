@@ -30,5 +30,3 @@
 
 - 继续上述计划
 - 测试SMIC28nm下的memory性能
-
- hhb -D --model-file mobilenetv2_140_Opset17.onnx --data-scale 0.017 --data-mean '124 117 104' --board c906 --input-name input --output-name output --input-shape '1 3 224 224' --postprocess save_and_top5 -- quantization-scheme float16
